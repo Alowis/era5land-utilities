@@ -11,7 +11,7 @@ import os
 
 #%%
 
-## Script 1/5
+## Script 1/4
 
 # CDS API script to use CDS service to retrieve hourly ERA5* variables and iterate over
 # all months in the specified years.
@@ -30,6 +30,7 @@ print("Current working directory: {0}".format(os.getcwd()))
 # Change working directory
 os.chdir('C:/Users/tilloal/pythonscripts/')
 
+# key text file containing (1) proxy key, (2) CDS API key, (3) working directory of the data
 keys=[]
 with open('Keys.txt') as f:
     for line in f:            

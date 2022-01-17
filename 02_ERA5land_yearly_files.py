@@ -19,7 +19,7 @@ import os
 
 #%%
 
-## Script 2/5
+## Script 2/4
 
 # script that creates yearly files of daily ERA5* variables and from aggregated hourly values
 # and creates yealry files from monthly files in the specified years.
@@ -31,13 +31,19 @@ import os
 # Output:
 # 1) separate netCDF file for chosen daily variable for each year
 
-
+#%%
 # Print the current working directory
 print("Current working directory: {0}".format(os.getcwd()))
-
+#%%
+# key text file containing (1) proxy key, (2) CDS API key, (3) working directory of the data
+keys=[]
+with open('Keys.txt') as f:
+    for line in f:            
+        keys.append(line) 
+        
 # Change the current working directory
-os.chdir('Z:/ClimateRun3/ERA5-land//')
-
+os.chdir(keys[2])
+#%%
 # Print the current working directory
 print("Current working directory: {0}".format(os.getcwd()))
 
