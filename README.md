@@ -17,4 +17,4 @@ The four steps prepare files for the main meteorological inputs of the LISVAP ev
 ## 2. additional files
 
 * "11_ERA5land_compression_par.py": Uses calculated add offset and scale factor from "02_ERA5land_yearly_files.py" to estimate the optimal parameters for the whole period (1981-2020)
-* "12_ERA5land_adapt_time_HPC.py": # script that shifts the variable dates by one. Useful for inputs of LISVAP and LISFLOOD.
+* "12_ERA5land_adapt_time_HPC.py": script that shifts the variable dates by one. Useful for inputs of LISVAP and LISFLOOD.
