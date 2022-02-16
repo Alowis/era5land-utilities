@@ -67,31 +67,34 @@ factorz=pd.read_csv('compression_factors.csv')
 src="Source.nc"
 
 __meteo_vars_config = {
-    'tn' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tn', __KEY_LONG_NAME : 'min_temperature',
-            __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
-    'tp' : {__KEY_UNIT : 'mm', __KEY_STANDARD_NAME : 'tp', __KEY_LONG_NAME : 'total_precipitation',
-            __KEY_OFFSET : factorz['add_offset'].values[5], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[5], __KEY_VMIN : -1, __KEY_VMAX : 7000},
-    'ta' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'ta', __KEY_LONG_NAME : 'mean_temperature',
-            __KEY_OFFSET : factorz['add_offset'].values[1], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[1], __KEY_VMIN : -700, __KEY_VMAX : 700},
-    'td' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'td', __KEY_LONG_NAME : 'mean_dewpoint_temperature',
-            __KEY_OFFSET : factorz['add_offset'].values[4], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[4], __KEY_VMIN : -700, __KEY_VMAX : 700},
-    'tx' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tx', __KEY_LONG_NAME : 'max_temperature',
-            __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -400, __KEY_VMAX : 400},
-    'ws' : {__KEY_UNIT : 'm/s', __KEY_STANDARD_NAME : 'ws', __KEY_LONG_NAME : 'avg_wind_speed',
-            __KEY_OFFSET : factorz['add_offset'].values[0], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[0], __KEY_VMIN : -400, __KEY_VMAX : 400},
-    'rg' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssr', __KEY_LONG_NAME : 'surface_net_solar_radiation',
-            __KEY_OFFSET : factorz['add_offset'].values[2], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[2]},
-    'rn' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'str', __KEY_LONG_NAME : 'surface_net_thermal_radiation',
-            __KEY_OFFSET : factorz['add_offset'].values[3], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[3]},
+        'tn' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tn', __KEY_LONG_NAME : 'min_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'tp' : {__KEY_UNIT : 'mm', __KEY_STANDARD_NAME : 'tp', __KEY_LONG_NAME : 'total_precipitation',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -1, __KEY_VMAX : 7000},
+        'ta' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'ta', __KEY_LONG_NAME : 'mean_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'td' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'td', __KEY_LONG_NAME : 'mean_dewpoint_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'tx' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tx', __KEY_LONG_NAME : 'max_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -400, __KEY_VMAX : 400},
+        'ws' : {__KEY_UNIT : 'm/s', __KEY_STANDARD_NAME : 'ws', __KEY_LONG_NAME : 'avg_wind_speed',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : 0, __KEY_VMAX : 45},
+        'rg' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssr', __KEY_LONG_NAME : 'surface_net_solar_radiation',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 1000},
+        'rgd' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssrd', __KEY_LONG_NAME : 'surface_downward_solar_radiation',
+            __KEY_OFFSET :0, __KEY_SCALE_FACTOR : 1000},
+        'rn' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'str', __KEY_LONG_NAME : 'surface_net_thermal_radiation',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 1000},
 }
-
-var = ['ws', 'ta','td','rg','rn','tp']
+vars_list = ' | '.join(__meteo_vars_config.keys())
+#%
+var = ['ta']
 # select variable for which a file will be created (from var above)
-vr="td"
+#vr="td"
 
 # Uncomment years as required
 years =  [
-#'1981',
+'1981',
 '1982', '1983', '1984',
 '1985', '1986', '1987',
 '1988', '1989', '1990',
@@ -111,20 +114,6 @@ years =  [
 
 ]
 
-scale_factor, add_offset = __meteo_vars_config[vr][__KEY_SCALE_FACTOR],__meteo_vars_config[vr][__KEY_OFFSET]
-
-ft=[]
-for yr in years:
-    d1=os.getcwd() + '/' + vr + '/1_arcmin/'
-    d1l=os.getcwd() + '/' + vr + '/0.1_deg/'
-    d2=  'e5ld_1arcmin_' + vr + '_'+ yr + '.nc'
-    d2l=  'e5ldx_' + vr + '_'+ yr + '.nc'
-    f=d1+d2
-    fl=d1l+d2l
-    ft.append(f)
-
-ds = xr.open_mfdataset(ft,combine = 'nested', concat_dim="time",mask_and_scale=False)
-dsx=ds[vr]
 
 #%%
 # tweaked writenetcdf function for large files
@@ -188,9 +177,9 @@ def writeMega(vr, dsx, scale_factor, add_offset,src):
         proj.proj4_params='+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
         proj.EPSG_code='EPSG:4326'
         #proj.spatial_ref='GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433],AUTHORITY["EPSG","4326"]]'
-        E5landata = nf2.createVariable(vr, 'i2',('time','lat','lon',), zlib=True, complevel=4, fill_value=-32767)
+        E5landata = nf2.createVariable(vr, 'i2',('time','lat','lon',), zlib=True, complevel=4, fill_value=-9999)
         E5landata.standard_name = __meteo_vars_config[vr][__KEY_STANDARD_NAME]
-        E5landata.missing_value=-32767
+        E5landata.missing_value=-9999
         E5landata.long_name = __meteo_vars_config[vr][__KEY_LONG_NAME]
         E5landata.units = __meteo_vars_config[vr][__KEY_UNIT]
         #E5landata.valid_min=(int(np.min(rfile))-add_offset)/scale_factor 
@@ -201,7 +190,7 @@ def writeMega(vr, dsx, scale_factor, add_offset,src):
         E5landata.set_auto_maskandscale(False)  
         E5landata.grid_mapping='wgs_1984'
         E5landata.esri_pe_string='GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433],AUTHORITY["EPSG","4326"]]' 
-        __VALUE_NAN=-32767
+        __VALUE_NAN=-9999
         
         #kiko=np.stack(rfile['latitude'])
         #koki=np.stack(rfile['longitude'])
@@ -227,5 +216,19 @@ def writeMega(vr, dsx, scale_factor, add_offset,src):
         nf2.close()
         dsx=[]
 #%%
-print ('Start generating netcdf file for variable: '+ vr)
-writeMega(vr,dsx,scale_factor,add_offset,src)
+for vr in var:
+    
+    scale_factor, add_offset = __meteo_vars_config[vr][__KEY_SCALE_FACTOR],__meteo_vars_config[vr][__KEY_OFFSET]
+    ft=[]
+    for yr in years:
+        d1=os.getcwd() + '/' + vr + '/1_arcmin/'
+        d1l=os.getcwd() + '/' + vr + '/0.1_deg/'
+        d2=  'e5ld_1min_lvap_' + vr + '_'+ yr + '.nc'
+        d2l=  'e5ldx_' + vr + '_'+ yr + '.nc'
+        f=d1+d2
+        fl=d1l+d2l
+        ft.append(f)
+    ds = xr.open_mfdataset(ft,combine = 'nested', concat_dim="time",mask_and_scale=False)
+    dsx=ds[vr]
+    print ('Start generating netcdf file for variable: '+ vr)
+    writeMega(vr,dsx,scale_factor,add_offset,src)

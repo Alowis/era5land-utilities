@@ -84,25 +84,52 @@ def compute_scale_and_offset(min, max, n):
 
 
 
-__meteo_vars_config = {
-    'tn' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tn', __KEY_LONG_NAME : 'min_temperature',
-            __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
-    'tp' : {__KEY_UNIT : 'mm', __KEY_STANDARD_NAME : 'tp', __KEY_LONG_NAME : 'total_precipitation',
-            __KEY_OFFSET : factorz['add_offset'].values[5], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[5], __KEY_VMIN : -1, __KEY_VMAX : 7000},
-    'ta' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'ta', __KEY_LONG_NAME : 'mean_temperature',
-            __KEY_OFFSET : factorz['add_offset'].values[1], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[1], __KEY_VMIN : -700, __KEY_VMAX : 700},
-    'td' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'td', __KEY_LONG_NAME : 'mean_dewpoint_temperature',
-            __KEY_OFFSET : factorz['add_offset'].values[4], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[4], __KEY_VMIN : -700, __KEY_VMAX : 700},
-    'tx' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tx', __KEY_LONG_NAME : 'max_temperature',
-            __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -400, __KEY_VMAX : 400},
-    'ws' : {__KEY_UNIT : 'm/s', __KEY_STANDARD_NAME : 'ws', __KEY_LONG_NAME : 'avg_wind_speed',
-            __KEY_OFFSET : factorz['add_offset'].values[0], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[0], __KEY_VMIN : -400, __KEY_VMAX : 400},
-    'rg' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssr', __KEY_LONG_NAME : 'surface_net_solar_radiation',
-            __KEY_OFFSET : factorz['add_offset'].values[2], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[2]},
-    'rn' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'str', __KEY_LONG_NAME : 'surface_net_thermal_radiation',
-            __KEY_OFFSET : factorz['add_offset'].values[3], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[3]},
-}
+facto=False
 
+
+if facto==True:
+    __meteo_vars_config = {
+        'tn' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tn', __KEY_LONG_NAME : 'min_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'tp' : {__KEY_UNIT : 'mm', __KEY_STANDARD_NAME : 'tp', __KEY_LONG_NAME : 'total_precipitation',
+                __KEY_OFFSET : factorz['add_offset'].values[5], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[5], __KEY_VMIN : -1, __KEY_VMAX : 7000},
+        'ta' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'ta', __KEY_LONG_NAME : 'mean_temperature',
+                __KEY_OFFSET : factorz['add_offset'].values[1], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[1], __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'td' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'td', __KEY_LONG_NAME : 'mean_dewpoint_temperature',
+                __KEY_OFFSET : factorz['add_offset'].values[4], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[4], __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'tx' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tx', __KEY_LONG_NAME : 'max_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -400, __KEY_VMAX : 400},
+        'ws' : {__KEY_UNIT : 'm/s', __KEY_STANDARD_NAME : 'ws', __KEY_LONG_NAME : 'avg_wind_speed',
+                __KEY_OFFSET : factorz['add_offset'].values[0], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[0], __KEY_VMIN : -400, __KEY_VMAX : 400},
+        'rg' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssr', __KEY_LONG_NAME : 'surface_net_solar_radiation',
+                __KEY_OFFSET : factorz['add_offset'].values[2], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[2]},
+        'rgd' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssrd', __KEY_LONG_NAME : 'surface_downward_solar_radiation',
+            __KEY_OFFSET :0, __KEY_SCALE_FACTOR : 1000},
+        'rn' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'str', __KEY_LONG_NAME : 'surface_net_thermal_radiation',
+                __KEY_OFFSET : factorz['add_offset'].values[3], __KEY_SCALE_FACTOR : factorz['scale_factor'].values[3]},
+    }
+
+if facto==False:
+    __meteo_vars_config = {
+        'tn' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tn', __KEY_LONG_NAME : 'min_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'tp' : {__KEY_UNIT : 'mm', __KEY_STANDARD_NAME : 'tp', __KEY_LONG_NAME : 'total_precipitation',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -1, __KEY_VMAX : 7000},
+        'ta' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'ta', __KEY_LONG_NAME : 'mean_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'td' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'td', __KEY_LONG_NAME : 'mean_dewpoint_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+        'tx' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tx', __KEY_LONG_NAME : 'max_temperature',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -400, __KEY_VMAX : 400},
+        'ws' : {__KEY_UNIT : 'm/s', __KEY_STANDARD_NAME : 'ws', __KEY_LONG_NAME : 'avg_wind_speed',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : 0, __KEY_VMAX : 45},
+        'rg' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssr', __KEY_LONG_NAME : 'surface_net_solar_radiation',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 1000},
+        'rgd' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssrd', __KEY_LONG_NAME : 'surface_downward_solar_radiation',
+            __KEY_OFFSET :0, __KEY_SCALE_FACTOR : 1000},
+        'rn' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'str', __KEY_LONG_NAME : 'surface_net_thermal_radiation',
+                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 1000},
+}
 vars_list = ' | '.join(__meteo_vars_config.keys())
 #%
 
@@ -178,12 +205,12 @@ def writenetcdf(yr, vr, dt, scale_factor, add_offset):
         #proj.spatial_ref='GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433],AUTHORITY["EPSG","4326"]]'
         
         if vr in ['ssr','str']:
-            E5landata = nf2.createVariable(vr, 'i2',('time','lat','lon',), zlib=True, complevel=4, fill_value=-32767)
+            E5landata = nf2.createVariable(vr, 'i2',('time','lat','lon',), zlib=True, complevel=4, fill_value=-9999)
         else:
-            E5landata = nf2.createVariable(vr, 'i2',('time','lat','lon',), zlib=True, complevel=4, fill_value=-32767)
+            E5landata = nf2.createVariable(vr, 'i2',('time','lat','lon',), zlib=True, complevel=4, fill_value=-9999)
         
         E5landata.standard_name = __meteo_vars_config[vr][__KEY_STANDARD_NAME]
-        E5landata.missing_value=-32767
+        E5landata.missing_value=-9999
         E5landata.long_name = __meteo_vars_config[vr][__KEY_LONG_NAME]
         E5landata.units = __meteo_vars_config[vr][__KEY_UNIT]
         #E5landata.valid_min=(int(np.min(rfile))-add_offset)/scale_factor 
@@ -214,7 +241,7 @@ def writenetcdf(yr, vr, dt, scale_factor, add_offset):
         #wala=np.isnan(results)
         #print(wala)
         #wali=np.asmatrix(results,dtype='uint8')
-        __VALUE_NAN=-32767
+        __VALUE_NAN=-9999
         resulti=rfile.fillna(__VALUE_NAN)
         #lona=round(__VALUE_NAN  * scale_factor +add_offset,1)
         #resulti[np.isnan(resulti)] = __VALUE_NAN  * scale_factor +add_offset
@@ -240,21 +267,21 @@ def writenetcdf(yr, vr, dt, scale_factor, add_offset):
 
 # Uncomment years as required
 years =  [
-'1981',
-'1982', '1983', '1984',
-'1985', '1986', '1987',
-'1988', '1989', '1990',
-#'1991', '1992', '1993',
-#'1994', '1995', '1996',
-#'1997', '1998', '1999',
-#'2000', '2001', '2002',
-'2003', 
-'2004', '2005','2006',
-'2007', '2008','2009', 
-'2010', '2011',
-'2012', '2013', '2014',
-'2015', '2016', '2017',
-'2018', '2019', '2020',
+#'1981',
+#'1982', '1983', '1984',
+#'1985', '1986', '1987',
+#'1988', '1989', '1990',
+'1991', '1992', '1993',
+'1994', '1995', '1996',
+'1997', '1998', '1999',
+'2000', '2001', '2002',
+#'2003', 
+#'2004', '2005','2006',
+#'2007', '2008','2009', 
+#'2010', '2011',
+#'2012', '2013', '2014',
+#'2015', '2016', '2017',
+#'2018', '2019', '2020',
 ]
 months = [ "01",
           "02", "03", "04", "05", "06", 
@@ -264,37 +291,49 @@ months = [ "01",
 
 # select your variable(s); name must be a valid ERA5 CDS API name 
 varconf=['u10', 'v10','t2m','str','ssr','tp','d2m']
+vc=['tp']
 
 # define names of new variables
-tvar = ['ws', 'ta','rg','rn','td','tp']
+tvar = ['ws', 'ta','rg','rn','td','tp','rgd']
 var = tvar
 
+
+
+#%%
 # parameter linked to the way data have been downloaded
 # fi=1 // all duration
 # fi=2 // 1991 - 2002
 # fi=3 // 1981-1990 & 2003-2020
-fi=3
+fi=2
+#%%
 for yr in years:
 
     for mo in months:
+        
+    
             if fi==1:
-                hourly_v = xr.open_dataset(os.getcwd() + '/hourly/e5l_'+ yr + '_' + mo + '.nc')
+                #hourly_v = xr.open_dataset(os.getcwd() + '/hourly/e5l_'+ yr + '_' + mo + '.nc')
+                hourly_v = xr.open_dataset(os.getcwd() + '/hourly/e5l_ssrd_'+ yr + '_' + mo + '.nc')
+                
             if fi==2:
                 hourly_v = xr.open_dataset(os.getcwd() + '/hourly/e5l_tp-2d_'+ yr + '_' + mo + '.nc') 
             if fi==3:
                 hourly_v = xr.open_dataset(os.getcwd() + '/hourly/e5l_tp_'+ yr + '_' + mo + '.nc') 
             
             vax=list(hourly_v.keys())
+            vax=vc
             print("the variables in this file are " + ' | '.join(vax)) 
             print('month ' + mo )
-            start = time.time()
-            
+            tan=len(hourly_v['time'])
+            koudur=range(0,tan,24)
+            start = time.time()         
             # create mean wind speed from u and v and extract daily mean
-            if 'u10' in vax and 'v10' in vax:
+            
+            if 'u10' in vc and 'v10' in vc:
                 v10= hourly_v['v10']
                 u10 = hourly_v['u10']
                 wind= wind_uv_to_spd(u10,v10)
-                wind=wind.rename({'ws'})
+                wind=wind.rename('ws')
                 daily_w = wind.resample(time='D').mean('time')
                 if mo=="01":
                     dw=daily_w
@@ -302,13 +341,16 @@ for yr in years:
                     dw = concat([dw,daily_w],dim='time')
                     
             # daily accumulation of precipitation   
-            if 'tp' in vax:
-
+            if 'tp' in vc:
                 tp= hourly_v['tp'] 
                 #convertion to mm
                 tp=tp*1000
-                daily_pr=tp.resample(time='D').max('time')   
-                daily_pr=daily_pr.rename({'tp'})
+                daily_pr=tp.resample(time='D').max('time')  
+                dptest= daily_pr
+                bite=[np.max(dptest),np.min(dptest)]
+                print(bite)
+                #dptest.plot.surface(yincrease=True)
+                daily_pr=daily_pr.rename('tp')
                 if mo=="01":
                     dtp=daily_pr
                 else:
@@ -318,38 +360,60 @@ for yr in years:
               # precipitation value is for the day before
               
             # daily mean of tempearature
-            if 't2m'in vax:
+            if 't2m'in vc:
                 t2m=hourly_v['t2m']
                 #convert Kelvin to degrees C
                 t2m=t2m-273.15
                 daily_t2m = t2m.resample(time='D').mean('time')
-                daily_t2m=daily_t2m.rename({'ta'})
+                daily_t2m=daily_t2m.rename('ta')
                 if mo=="01":
                     dta=daily_t2m
                 else:
                     dta = concat([dta,daily_t2m],dim='time')
                     
             # daily means of surface net thermal radiation and surface net solar radiation    
-            if 'str'in vax:
+            if 'str'in vc:
                 sstr=hourly_v['str']
-                daily_rn = sstr.resample(time='D').sum('time',min_count=4) 
-                daily_rn=daily_rn.rename({'rn'})
+                mamene=sstr[range(260,450),300,200] 
+                mamene.plot() 
+                daily_rn = sstr[koudur,:,:] 
+                daily_rn2 = sstr.resample(time='D').sum('time',min_count=4)
+                #dd=daily_rn[:,300,200]
+                #dd2=daily_rn2[:,300,200]
+                #dd.plot()
+
+                daily_rn=daily_rn.rename('rn')
                 if mo=="01":
                     drn=daily_rn
                 else:
                     drn = concat([drn,daily_rn],dim='time')
                 
-            if 'ssr'in vax:
+            if 'ssr'in vc:
                 ssr=hourly_v['ssr']
-                daily_rg = ssr.resample(time='D').sum('time',min_count=4) 
-                daily_rg= daily_rg.rename({'rg'})
+                mamene=ssr[range(260,300),300,200] 
+                mamene.plot() 
+                daily_rg = ssr[koudur,:,:] 
+                #daily_rg = ssr.resample(time='D').sum('time',min_count=4) 
+                daily_rg= daily_rg.rename('rg')
                 if mo=="01":
                     drg=daily_rg
                 else:
                     drg = concat([drg,daily_rg],dim='time')
+                    
+            if 'ssrd'in vc:
+                ssrd=hourly_v['ssrd']
+                mamene=ssrd[range(260,300),300,200] 
+                mamene.plot() 
+                daily_rgd = ssrd[koudur,:,:] 
+                #daily_rg = ssr.resample(time='D').sum('time',min_count=4) 
+                daily_rgd= daily_rgd.rename('rgd')
+                if mo=="01":
+                    drgd=daily_rgd
+                else:
+                    drgd = concat([drgd,daily_rgd],dim='time')
                 
             # daily mean of dew point temperature
-            if 'd2m'in vax:
+            if 'd2m'in vc:
                 d2m=hourly_v['d2m']
                 #convert Kelvin to degrees C
                 d2m=d2m-273.15
@@ -370,10 +434,8 @@ for yr in years:
             end=time.time()
             print(end - start)
 
-
-#%%
     # generate new yearly netcdf of daily values of the variables using scale factor ans add offset
-        
+
     if 'u10' in vax and 'v10' in vax:
         dt=dw
         vr=var[0]
@@ -395,6 +457,16 @@ for yr in years:
     if 'ssr' in vax:
         dt=drg
         vr=var[2]
+        scale_factor, add_offset = __meteo_vars_config[vr][__KEY_SCALE_FACTOR],__meteo_vars_config[vr][__KEY_OFFSET]
+        dtx=np.round((dt - add_offset) / scale_factor)
+        print ('Start generating netcdf file for variable: '+ vr)
+        print(scale_factor)
+        
+        writenetcdf(yr,vr,dtx,scale_factor,add_offset)
+        
+    if 'ssrd' in vax:
+        dt=drgd
+        vr=var[6]
         scale_factor, add_offset = __meteo_vars_config[vr][__KEY_SCALE_FACTOR],__meteo_vars_config[vr][__KEY_OFFSET]
         dtx=np.round((dt - add_offset) / scale_factor)
         print ('Start generating netcdf file for variable: '+ vr)

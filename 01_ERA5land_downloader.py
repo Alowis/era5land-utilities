@@ -37,7 +37,8 @@ with open('Keys.txt') as f:
         keys.append(line) 
 
 # Proxy settings
-proxy = keys[0]
+#proxy = keys[0]
+proxy = "http://tilloal:Aloca1+@10.168.209.70:8012"
 
 os.environ['http_proxy'] = proxy 
 os.environ['HTTP_PROXY'] = proxy
@@ -45,47 +46,53 @@ os.environ['https_proxy'] = proxy
 os.environ['HTTPS_PROXY'] = proxy
 
 # Load personnal API Key
-mykey=keys[1]
+#mykey=keys[1]
+mykey="8471:29d6d571-c97b-4251-a166-89201e845bab"
+print(mykey)
+#%%
 CDSAPI_URL="https://cds.climate.copernicus.eu/api/v2"
 CDSAPI_KEY=mykey
 
 c = cdsapi.Client(key=CDSAPI_KEY, url=CDSAPI_URL) 
-
+#%%
 # select your variable(s); name must be a valid ERA5 CDS API name.
-var = ['10m_u_component_of_wind', '10m_v_component_of_wind', '2m_temperature','surface_net_thermal_radiation', 'surface_net_solar_radiation','2m_dewpoint_temperature']
-#var = ['total_precipitation']
-varnames = ['u10', 'v10','2t','str','ssr','2d']
-#varnames = ['tp']
+#var = ['10m_u_component_of_wind', '10m_v_component_of_wind', '2m_temperature','surface_net_thermal_radiation', 'surface_net_solar_radiation','2m_dewpoint_temperature']
+var = ['surface_solar_radiation_downwards']
+#varnames = ['u10', 'v10','2t','str','ssr','2d']
+varnames = ['ssrd']
 
 # define area where data needs to be extracted (long/lat)
 area=[72.25, -25.25, 22.25, 50.25,]
 #%%
 # Uncomment years as required
 years =  [
-#'1981',
-#'1982', '1983', '1984',
-#'1985', '1986', '1987',
-#'1988', '1989', '1990',
-#'1991', '1992', '1993',
-#'1994', '1995', '1996',
-#'1997', '1998',
-#'1999',
-#'2000', '2001', '2002',
-#'2003', '2004', '2005',
-#'2006', '2007', '2008',
-#'2009', '2010', '2011',
-#'2012', '2013', '2014',
-#'2015', '2016', '2017',
-#'2018', '2019', '2020',
-#'2021'
+#'1981','1982', '1983',
+'1984',
+'1985', '1986', '1987',
+'1988', '1989', '1990',
+'1991', '1992', '1993',
+'1994', '1995', '1996',
+'1997', '1998',
+'1999',
+'2000', '2001', '2002',
+'2003', '2004', '2005',
+'2006', '2007', '2008',
+'2009', '2010', '2011',
+'2012', '2013', '2014',
+'2015', '2016', '2017',
+'2018', '2019', '2020',
+
 ]
  
 months = [ "01", "02", "03", "04", "05", "06", 
          "07", "08", "09", "10", "11", "12" ] 
 
+#%%
 # Choose directory where to download files
 dire=keys[2]
-os.chdir(dire)
+direh=dire + "\hourly"
+#%%
+os.chdir(direh)
 #%%
 # main loop to download variables
 for yr in years:
@@ -123,4 +130,4 @@ for yr in years:
             'area':area ,
             'format': 'netcdf',
         },
-        "e5l"+ "_tp_" + yr + "_" + mn + ".nc")
+        "e5l"+ "_" + varnames[0] + "_" + yr + "_" + mn + ".nc")
