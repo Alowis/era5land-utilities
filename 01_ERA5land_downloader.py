@@ -58,29 +58,23 @@ c = cdsapi.Client(key=CDSAPI_KEY, url=CDSAPI_URL)
 # select your variable(s); name must be a valid ERA5 CDS API name.
 #var = ['10m_u_component_of_wind', '10m_v_component_of_wind', '2m_temperature','surface_net_thermal_radiation', 'surface_net_solar_radiation','2m_dewpoint_temperature']
 var = ['surface_solar_radiation_downwards']
+var = ['potential_evaporation']
 #varnames = ['u10', 'v10','2t','str','ssr','2d']
-varnames = ['ssrd']
+varnames = ['pev']
 
 # define area where data needs to be extracted (long/lat)
 area=[72.25, -25.25, 22.25, 50.25,]
 #%%
 # Uncomment years as required
 years =  [
-#'1981','1982', '1983',
-'1984',
-'1985', '1986', '1987',
+#'1981','1982', '1983','1984',
+#'1985', '1986', '1987',
 '1988', '1989', '1990',
-'1991', '1992', '1993',
-'1994', '1995', '1996',
-'1997', '1998',
+#'1991', '1992', '1993','1994', '1995', '1996','1997', '1998',
 '1999',
-'2000', '2001', '2002',
-'2003', '2004', '2005',
-'2006', '2007', '2008',
-'2009', '2010', '2011',
-'2012', '2013', '2014',
-'2015', '2016', '2017',
-'2018', '2019', '2020',
+#'2000', '2001', '2002','2003', '2004', '2005','2006', '2007', '2008',
+#'2009', '2010', '2011','2012', '2013', '2014','2015', '2016', '2017',
+#'2018', '2019', '2020',
 
 ]
  

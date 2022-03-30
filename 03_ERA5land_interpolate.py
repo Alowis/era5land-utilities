@@ -90,7 +90,7 @@ def regridnetcdf(yr, vr, dt, scale_factor, add_offset,obje, facto):
     if facto==True:
         d2=  vr + '\\1_arcmin\e5ld_1arcmin_' + vr + '_'+ yr + '.nc'
     if facto==False:
-        d2=  vr + '\\1_arcmin\e5ld_1min_lvap_' + vr + '_'+ yr + '.nc'
+        d2=  vr + '\\1_arcmin\e5ld_1min_lvapn_' + vr + '_'+ yr + '.nc'
     namenc=d1+d2
     nf2=Dataset(namenc,mode='w',format='NETCDF4_CLASSIC') 
     nf2.history = 'Created Nov 2021' #####
@@ -148,7 +148,7 @@ def regridnetcdf(yr, vr, dt, scale_factor, add_offset,obje, facto):
     E5landata.scale_factor=scale_factor        
     E5landata.add_offset=add_offset
     print(E5landata.units)    
-    E5landata.set_auto_maskandscale(False)  
+    E5landata.set_auto_scale(False)  
     E5landata.grid_mapping='wgs_1984'
     E5landata.esri_pe_string='GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433],AUTHORITY["EPSG","4326"]]' 
     __VALUE_NAN=-9999
@@ -162,10 +162,17 @@ def regridnetcdf(yr, vr, dt, scale_factor, add_offset,obje, facto):
     #longitude[:]=np.arange(-25.25, 50.25, 0.016666667)
     
     #daily variable need to be the accumulation of the previous day
-    if vr in ['ssr','str', 'ssrd', 'tp']:
+
+    if vr in ['rgd','rn']:
+        
+        print(vr+" nothing")
         time[:]=np.arange(kaka)
+        
     else:
+        
+        print(vr+' day+1')
         time[:]=np.arange(kaka) +1
+        
     #wala=np.isnan(results)
     #print(wala)
     #wali=np.asmatrix(results,dtype='uint8')
@@ -219,45 +226,38 @@ if facto==True:
 if facto==False:
     __meteo_vars_config = {
         'tn' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tn', __KEY_LONG_NAME : 'min_temperature',
-                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
         'tp' : {__KEY_UNIT : 'mm', __KEY_STANDARD_NAME : 'tp', __KEY_LONG_NAME : 'total_precipitation',
-                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -1, __KEY_VMAX : 7000},
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -1, __KEY_VMAX : 7000},
         'ta' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'ta', __KEY_LONG_NAME : 'mean_temperature',
-                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
         'td' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'td', __KEY_LONG_NAME : 'mean_dewpoint_temperature',
-                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -700, __KEY_VMAX : 700},
         'tx' : {__KEY_UNIT : 'celcius', __KEY_STANDARD_NAME : 'tx', __KEY_LONG_NAME : 'max_temperature',
-                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -400, __KEY_VMAX : 400},
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : -400, __KEY_VMAX : 400},
         'ws' : {__KEY_UNIT : 'm/s', __KEY_STANDARD_NAME : 'ws', __KEY_LONG_NAME : 'avg_wind_speed',
-                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : 0, __KEY_VMAX : 45},
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : 0, __KEY_VMAX : 45},
+        'u10' : {__KEY_UNIT : 'm/s', __KEY_STANDARD_NAME : 'u10', __KEY_LONG_NAME : 'avg_u_component_wind',
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : 0, __KEY_VMAX : 45},
+        'v10' : {__KEY_UNIT : 'm/s', __KEY_STANDARD_NAME : 'ws', __KEY_LONG_NAME : 'avg_v_component_wind',
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 0.1, __KEY_VMIN : 0, __KEY_VMAX : 45},
         'rg' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssr', __KEY_LONG_NAME : 'surface_net_solar_radiation',
-                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 1000},
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 10000.0},
         'rgd' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'ssrd', __KEY_LONG_NAME : 'surface_downward_solar_radiation',
-            __KEY_OFFSET :0, __KEY_SCALE_FACTOR : 1000},
+            __KEY_OFFSET :0.0, __KEY_SCALE_FACTOR : 10000.0},
         'rn' : {__KEY_UNIT : 'J/m2/d', __KEY_STANDARD_NAME : 'str', __KEY_LONG_NAME : 'surface_net_thermal_radiation',
-                __KEY_OFFSET : 0, __KEY_SCALE_FACTOR : 1000},
+                __KEY_OFFSET : 0.0, __KEY_SCALE_FACTOR : 10000.0},
 }
 #%%
 # Uncomment years as required
 years =  [
-'1981',
-'1982', '1983', '1984',
-'1985', '1986', '1987','1988', 
-'1989', 
-'1990','1991', 
-'1992', '1993',
-'1994', '1995', '1996',
-'1997', 
-'1998', '1999','2000',
-'2001', '2002',
-'2003', '2004', '2005',
-'2006', '2007', '2008',
-'2009',
-'2010', '2011',
-'2012',
-'2013', '2014',
-'2015', '2016', '2017',
-'2018', '2019', '2020',
+#'1981','1982', '1983',
+#'1984','1985', '1986', '1987','1988',
+#'1989', '1990',
+#'1991', '1992', '1993','1994', '1995', '1996','1997', '1998', '1999','2000','2001', '2002',
+#'2003', '2004', '2005','2006', '2007', '2008','2009','2010', '2011',
+#'2012','2013',
+'2014','2015', '2016', '2017','2018', '2019', '2020',
 ]
 
 months = [ "01",
@@ -266,8 +266,8 @@ months = [ "01",
          ] 
 
 #var = ['ws', 'ta','td','rg','rn','rgd']
-#var = ['rgd']
-var= ['tp']
+var = ['rgd','rn']
+#var= ['u10','v10']
 
 # file with the objective grid
 obje="Source.nc"
@@ -276,7 +276,7 @@ obje="Source.nc"
 for yr in years:
     for vr in var:
         ox=[]
-        file_obj = nc.Dataset(vr + "\\0.1_deg\e5ldx_" + vr + "_" + yr+ ".nc")
+        file_obj = nc.Dataset(vr + "\\0.1_deg\e5ldxc_" + vr + "_" + yr+ ".nc")
         #if vr in ['ssr','str']:
         scale_factor, add_offset = __meteo_vars_config[vr][__KEY_SCALE_FACTOR],__meteo_vars_config[vr][__KEY_OFFSET]
         print(file_obj.variables[vr].add_offset)
@@ -284,7 +284,7 @@ for yr in years:
         
         #scale_factor = file_obj.variables[vr].scale_factor
         Source = xr.open_dataset("Source.nc")
-        Target = xr.open_dataset(vr + "\\0.1_deg\e5ldx_" + vr + "_" + yr+ ".nc",mask_and_scale=True)
+        Target = xr.open_dataset(vr + "\\0.1_deg\e5ldxc_" + vr + "_" + yr+ ".nc",mask_and_scale=True)
         #Target = xr.open_dataset(vr + "\\0.1_deg\e5lf_" + vr + "_" + yr+ ".nc")
         obj=Source['area']
         vt=len(Target['time'])
